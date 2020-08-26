@@ -1,0 +1,12 @@
+<h1>Edit Current Patients</h1>
+<p><%= form_for @patient do |f| %></p>
+  <p><%= f.label "Name" %></p>
+  <p><%= f.text_field :name %></p>
+  <p><%= f.label "Age" %></p>
+  <p><%= f.text_field :age %></p>
+  <p><%= f.label "Body Mass Index" %></p>
+  <p><%= f.text_field :bmi %></p>
+  <p><%= f.label "Phone Number" %></p>
+  <p><%= f.text_field :phone_number %></p>
+  <p><%= f.submit "Update Patient" %></p>
+  <% end %>
