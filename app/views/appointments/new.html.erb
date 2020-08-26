@@ -1,0 +1,12 @@
+<h1>New Appointment</h1>
+<%= form_for @appointment do |f| %>
+  <%= f.label :patients %>
+<%= f.select :patient_id, Patient.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
+  <%= f.label :notes %>
+<%= f.text_area :notes %> 
+<%= f.label :date %>
+<%= f.date_field :date %>
+<%= f.label :time %>
+<%= f.time_field :time %>
+<%= f.submit %>
+<% end %>
