@@ -1,12 +1,28 @@
 <h1>New Appointment</h1>
 <%= form_for @appointment do |f| %>
-  <%= f.label :patients %>
-<%= f.select :patient_id, Patient.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
+  <%if @patient%>
+    <h3>New Appointment for: <%=@patient.name%></h3>
+    <%=f.hidden_field :patient_id, value:@patient.id%>
+  <%else%>
+    <h3>Select Existing Patient:</h3>
+    <%= f.select :patient_id, Patient.all.collect { |p| [ p.name, p.id ] }, include_blank: true %>
+    <h3>Or, Create a New Patient:</h3>
+    <%=f.fields_for :patient, Patient.new do |patient_fields| %>
+      <p><%= patient_fields.label "Name" %></p>
+      <p><%= patient_fields.text_field :name %></p>
+      <p><%= patient_fields.label "Age" %></p>
+      <p><%= patient_fields.text_field :age %></p>
+      <p><%= patient_fields.label "Body Mass Index" %></p>
+      <p><%= patient_fields.text_field :bmi %></p>
+      <p><%= patient_fields.label "Phone Number" %></p>
+      <p><%= patient_fields.text_field :phone_number %></p>
+    <%end%>
+  <%end%>
   <%= f.label :notes %>
-<%= f.text_area :notes %> 
-<%= f.label :date %>
-<%= f.date_field :date %>
-<%= f.label :time %>
-<%= f.time_field :time %>
-<%= f.submit %>
+  <%= f.text_area :notes %>
+  <%= f.label :date %>
+  <%= f.date_field :date %>
+  <%= f.label :time %>
+  <%= f.time_field :time %>
+  <%= f.submit %>
 <% end %>

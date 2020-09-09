@@ -1,6 +1,6 @@
+# frozen_string_literal: true
+
 class AppointmentsController < ApplicationController
-  
-  
   def index
     @appointments = Appointment.all
   end
@@ -9,41 +9,39 @@ class AppointmentsController < ApplicationController
     @appointment = Appointment.find_by_id(params[:id])
   end
 
-  def new 
+  def new
+    @patient = Patient.find_by_id(params[:patient_id]) if params[:patient_id]
     @appointment = Appointment.new
   end
 
-  def create 
-    @appointment = Appointment.create(appointment_params)
+  def create
+    @appointment = current_doctor.appointments.create(appointment_params)
     redirect_to appointment_path(@appointment)
   end
 
-  def edit 
+  def edit
     set_appointment
-  end 
+  end
 
-  def update 
+  def update
     set_appointment
     @appointment.update(appointment_params)
     redirect_to appointment_path(@appointment)
   end
 
-  def destroy 
+  def destroy
     set_appointment
-    @appointment.destroy 
+    @appointment.destroy
     redirect_to appointments_path
   end
 
-  
-  private 
+  private
 
-  def set_appointment 
+  def set_appointment
     @appointment = Appointment.find_by_id(params[:id])
   end
 
-  def appointment_params 
-    params.require(:appointment).permit(:name, :age, :bmi, :phone_number)
+  def appointment_params
+    params.require(:appointment).permit(:patient_id, :date, :time, :notes, patient_attributes: %i[name age bmi phone_number])
   end
-
 end
-

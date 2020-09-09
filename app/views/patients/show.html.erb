@@ -4,4 +4,5 @@
 <p>Age: <%=@patient.age%></p>
 <h3>Contact Info:</h3>
 <p>Phone: <%=@patient.phone_number%></p>
+<%=link_to "Create Appointment", new_patient_appointment_path(@patient)%>
 <%= link_to 'Back',  patients_path%>
